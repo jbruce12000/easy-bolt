@@ -1,6 +1,6 @@
 # easy-bolt
 
-3D Openscad file to easily generate bolts, nuts, washers, and threaded rods
+3D printing Openscad file to easily generate stls for bolts, nuts, washers, and threaded rods.
 
 ![bolts,nuts,washers,threaded rods](https://github.com/jbruce12000/easy-bolt/blob/main/art/easy-bolt.png)
 
