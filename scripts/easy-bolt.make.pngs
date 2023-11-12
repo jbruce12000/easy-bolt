@@ -1,0 +1,40 @@
+# bolt heads
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.standard.png --imgsize 300,300 -D 'bolt_head_shape="standard"'
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.cheese.png --imgsize 300,300 -D 'bolt_head_shape="cheese"'
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.countersunk.png --imgsize 300,300 -D 'bolt_head_shape="countersunk"' -D 'bolt_head_slot="yes"' -D bolt_head_slot_depth=5
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.round.png --imgsize 300,300 -D 'bolt_head_shape="round"' -D 'bolt_head_slot="yes"' -D bolt_head_slot_depth=5
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.knurled.png --imgsize 300,300 -D 'bolt_head_shape="gnurled"'
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.4.sides.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D sides=4
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_shape.8.sides.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D sides=8
+
+# bolt smooth
+openscad ./easy-bolt.scad --camera=0,0,0,280,0,0,0 --viewall --autocenter -o bolt_smooth_exists.png --imgsize 300,300
+openscad ./easy-bolt.scad --camera=0,0,0,280,0,0,0 --viewall --autocenter -o bolt_smooth_removed.png --imgsize 300,300 -D 'bolt_smooth_length=0'
+
+# bolt hollow
+openscad ./easy-bolt.scad --camera=0,0,0,300,0,0,0 --viewall --autocenter -o bolt_smooth_hollow.png --imgsize 300,300 -D 'bolt_hollow="yes"'
+
+# bolt head slots
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_slot.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D 'bolt_head_slot="yes"'
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_socket.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D 'bolt_head_socket="yes"' -D bolt_head_socket_depth=5 -D bolt_head_socket_diameter=8
+
+
+# nut shapes
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,0,0 --viewall --autocenter -o nut_shape.standard.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_nut="yes"' -D 'nut_shape="standard"'
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,90,0 --viewall --autocenter -o nut_shape.wing.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_nut="yes"' -D 'nut_shape="wing"'
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,0,0 --viewall --autocenter -o nut_shape.cap.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_nut="yes"' -D 'nut_shape="cap"'
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,0,0 --viewall --autocenter -o nut_shape.flange.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_nut="yes"' -D 'nut_shape="flange"' -D nut_h=11 -D nut_d=20 -D nut_flange_d=30
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,0,0 --viewall --autocenter -o nut_shape.knurled.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_nut="yes"' -D 'nut_shape="gnurled"'
+
+# washer
+openscad ./easy-bolt.scad --camera=0,0,0,50,0,0,0 --viewall --autocenter -o washer.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_washer="yes"'
+
+# rod
+openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"' -D sides=120
+openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.sided.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6
+openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.one.side.threaded.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6 -D rod_thread_start_length=0
+openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.all.threaded.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6 -D rod_thread_start_length=0 -D rod_smooth_length=0
+openscad ./easy-bolt.scad --camera=0,0,0,320,0,0,0 --viewall --autocenter -o rod.hollow.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6 -D 'rod_hollow="yes"'
+
+
+
