@@ -36,5 +36,6 @@ openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.
 openscad ./easy-bolt.scad --camera=0,0,0,80,0,0,0 --viewall --autocenter -o rod.all.threaded.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6 -D rod_thread_start_length=0 -D rod_smooth_length=0
 openscad ./easy-bolt.scad --camera=0,0,0,320,0,0,0 --viewall --autocenter -o rod.hollow.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_rod="yes"'  -D sides=6 -D 'rod_hollow="yes"'
 
-
+# standoff
+openscad ./easy-bolt.scad --camera=0,0,0,120,0,0,0 --viewall --autocenter -o standoff.png --imgsize 300,300 -D 'show_bolt="no"' -D 'show_standoff="yes"'  -D sides=6
 
