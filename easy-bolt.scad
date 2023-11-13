@@ -9,10 +9,10 @@ measure_flat_to_flat="yes"; // [yes,no]
 chamfer=1.0;
 //min thickness of any wall (if any)
 wall=3.0;
-//gnurl_depth
-gnurl_depth=1.0;
-//number of gnurls
-gnurls=30;
+//knurl_depth
+knurl_depth=1.0;
+//number of knurls
+knurls=30;
 // reverse threads
 reverse_threads="no"; // [yes,no]
 
@@ -20,7 +20,7 @@ reverse_threads="no"; // [yes,no]
 // show bolt? 
 show_bolt="yes"; // [yes,no]
 // shape of bolt head
-bolt_head_shape="standard"; // [standard,cheese,countersunk,round,gnurled]
+bolt_head_shape="standard"; // [standard,cheese,countersunk,round,knurled]
 //length of smooth section
 bolt_smooth_length=10.0;
 //diameter of smooth section (0=use diameter of threads)
@@ -53,7 +53,7 @@ bolt_hollow="no"; //[yes,no]
 /* [Nut] */
 // show nut?
 show_nut="no"; //[yes,no]
-nut_shape="standard"; //[standard,wing,cap,flange,gnurled]
+nut_shape="standard"; //[standard,wing,cap,flange,knurled]
 // height of nut
 nut_h=11.0; 
 // outside diameter of nut
@@ -216,10 +216,10 @@ if(nut_shape=="wing") {
   } // end diff
   } // end wingnut
 
-if(nut_shape=="gnurled") {
+if(nut_shape=="knurled") {
   cut_female_threads(h=h,thread=thread,thread_info=thread_info)
   translate([0,0,h/2])
-  gnurl_cylinder(d=d,h=h)
+  knurl_cylinder(d=d,h=h)
   chamfered_cylinder(d=d,h=h,c=chamfer,sides=120);
   }
 
@@ -253,17 +253,17 @@ cylinder(d=d_cut,h=h+safety*2,center=true);
 }
 
 //---------------------------------------------------------------------------
-module gnurl_cylinder(h=10,d=25,depth=1) {
+module knurl_cylinder(h=10,d=25,depth=1) {
 difference() {
 children();
 
-degs=360/gnurls;
+degs=360/knurls;
 
 for(i=[0:degs:360]) {
 rotate([0,0,i])
 translate([d/2,0,0])
 rotate([0,0,45])
-cube([gnurl_depth,gnurl_depth,h*2],center=true);
+cube([knurl_depth,knurl_depth,h*2],center=true);
 }
 }
 }
@@ -288,8 +288,8 @@ if(bolt_head_shape=="round") {
   cylinder(d=(h*2)+safety,h=h+safety,$fn=120);
   }
   }
-if(bolt_head_shape=="gnurled") {
-  gnurl_cylinder(d=d,h=h)
+if(bolt_head_shape=="knurled") {
+  knurl_cylinder(d=d,h=h)
   chamfered_cylinder(d=d,h=h,c=chamfer,sides=120);
   }
 }
