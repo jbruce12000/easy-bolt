@@ -13,6 +13,8 @@ wall=3.0;
 gnurl_depth=1.0;
 //number of gnurls
 gnurls=30;
+// reverse threads
+reverse_threads="no"; // [yes,no]
 
 /* [Bolt] */
 // show bolt? 
@@ -228,7 +230,14 @@ module cut_female_threads(h=5,thread=thread,thread_info=thread_int_info) {
 
 difference() {
 children();
-tap(thread, turns=h/thread_info[0]);
+if (reverse_threads=="yes") {
+  translate([0,0,h])
+  mirror([0,0,-1])
+  tap(thread, turns=h/thread_info[0]);
+}
+else {
+  tap(thread, turns=h/thread_info[0]);
+  }
 }
 }
 
@@ -296,7 +305,15 @@ polygon([[c+safety,0],[c+safety,c+safety],[0,c+safety],[c+safety,0]]);
 // this puts a really small chamfer at the top of all threads
 module male_threads(thread=thread,thread_info=thread_int_info,h=5,chamfer_bottom=false) {
 difference() {
-bolt(thread, turns=h/thread_info[0]);
+
+if(reverse_threads=="yes") {
+  translate([0,0,h])
+  mirror([0,0,1])
+  bolt(thread, turns=h/thread_info[0]);
+  }
+else {
+  bolt(thread, turns=h/thread_info[0]);
+  }
 
 c=thread_info[0]/6;
 if(chamfer_bottom==true) {
