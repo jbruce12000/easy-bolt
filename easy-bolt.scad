@@ -83,6 +83,18 @@ rod_thread_end_length=20.0;
 // hollow out the inside of the rod
 rod_hollow="no"; //[yes,no]
 
+/* [Standoff] */
+// show standoff?
+show_standoff="no"; //[yes,no]
+// length of the smooth part of the standoff
+standoff_smooth_length=20.0;
+//diameter of the smooth part of the standoff (0=use diameter of threads)
+standoff_smooth_diameter=0.0;
+// length of the threaded start of the standoff
+standoff_thread_external_length=10.0;
+// length of the threaded end of the standoff 
+standoff_thread_internal_length=10.0;
+
 /* [Misc] */
 $fn=120;
 safety=.01;
@@ -213,6 +225,7 @@ if(nut_shape=="gnurled") {
 
 //---------------------------------------------------------------------------
 module cut_female_threads(h=5,thread=thread,thread_info=thread_int_info) {
+
 difference() {
 children();
 tap(thread, turns=h/thread_info[0]);
@@ -418,12 +431,32 @@ if(rod_smooth_length>0) {
 }
 
 //---------------------------------------------------------------------------
+module standoff(standoff_smooth_length=10,standoff_thread_external_length=10,standoff_thread_internal_length=10,thread=thread,thread_info=thread_int_info,sides=120,chamfer=1) {
+
+cut_female_threads(h=standoff_thread_internal_length,thread=thread,thread_info=thread_info)
+
+translate([0,0,standoff_smooth_length])
+union() {
+// external threads
+translate([0,0,thread_int_info[0]/2])
+male_threads(thread=thread,thread_info=thread_info,h=standoff_thread_external_length-thread_int_info[0]);
+
+// smooth section
+translate([0,0,-standoff_smooth_length/2+safety])
+if(standoff_smooth_diameter>0) {
+  chamfered_cylinder(h=standoff_smooth_length+safety,d=flat_or_point_d(standoff_smooth_diameter),sides=sides,c=chamfer);
+  }
+else {
+  chamfered_cylinder(h=standoff_smooth_length+safety,d=flat_or_point_d(thread_int_info[2])+wall,sides=sides,c=chamfer);
+  }
+}
+}
+
+//---------------------------------------------------------------------------
 // should nuts, bolt heads and multi-sided rods be measured pt to pt or
 // flat to flat?
 function flat_or_point_d(d) =
 sides<11 && sides % 2==0 && measure_flat_to_flat=="yes" ? (d/2)/(cos((360/sides)/2))*2 : d;
-
-
 
 //---------------------------------------------------------------------------
 if (show_nut=="yes") {
@@ -442,3 +475,6 @@ if (show_rod=="yes") {
 rod(thread=thread,thread_info=thread_int_info,rod_smooth_length=rod_smooth_length,rod_thread_start_length=rod_thread_start_length,rod_thread_end_length=rod_thread_end_length,sides=sides,chamfer=chamfer);
 }
 
+if (show_standoff=="yes") {
+standoff(thread=thread,thread_info=thread_int_info,standoff_smooth_length=standoff_smooth_length,standoff_thread_external_length=standoff_thread_external_length,standoff_thread_internal_length=standoff_thread_internal_length,sides=sides,chamfer=chamfer);
+}
