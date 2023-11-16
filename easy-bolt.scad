@@ -386,15 +386,20 @@ translate([0,0,thread_int_info[0]/2])
 if(bolt_threaded_length>0) {
   male_threads(thread=thread,thread_info=thread_info,h=bolt_threaded_length-thread_info[0]);
 }
+
 // smooth section
 translate([0,0,-bolt_smooth_length])
 union() {
 translate([0,0,+bolt_smooth_length/2-safety])
 if(bolt_smooth_length>0) {
   if(bolt_smooth_diameter>0) {
+    //specialized chamfer here to match smooth section to threaded
+    chamfer=(bolt_smooth_diameter-thread_ext_info[2])/2;
     chamfered_cylinder(h=bolt_smooth_length+safety,d=bolt_smooth_diameter,sides=120,c=chamfer,just_top=true);
     }
   if(bolt_smooth_diameter==0) {
+    //specialized chamfer here to match smooth section to threaded
+    chamfer=(thread_int_info[2] - thread_ext_info[2])/2;
     chamfered_cylinder(h=bolt_smooth_length+safety,d=thread_int_info[2],sides=120,c=chamfer,just_top=true);
     }
   }
