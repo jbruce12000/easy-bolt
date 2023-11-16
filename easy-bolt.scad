@@ -96,6 +96,8 @@ standoff_smooth_diameter=0.0;
 standoff_thread_external_length=10.0;
 // length of the threaded end of the standoff 
 standoff_thread_internal_length=10.0;
+// hollow out the inside of the standoff?
+standoff_hollow="no"; //[yes,no]
 
 /* [Misc] */
 $fn=120;
@@ -414,6 +416,7 @@ if(rod_hollow=="yes") {
   }
   }
 }
+
 //---------------------------------------------------------------------------
 module rod(rod_smooth_length=10,rod_thread_start_length=10,rod_thread_end_length=10,thread=thread,thread_info=thread_int_info,sides=120,chamfer=1) {
 
@@ -448,8 +451,25 @@ if(rod_smooth_length>0) {
 }
 
 //---------------------------------------------------------------------------
+module hollow_standoff() {
+if(standoff_hollow=="no") { children(); }
+if(standoff_hollow=="yes") {
+  difference() {
+  children();
+  h=standoff_thread_external_length+standoff_smooth_length+safety*4;
+  translate([0,0,-safety*2])
+  cylinder(d=thread_int_info[2]-wall*2,h=h);
+  }
+  }
+}
+
+
+//---------------------------------------------------------------------------
 module standoff(standoff_smooth_length=10,standoff_thread_external_length=10,standoff_thread_internal_length=10,thread=thread,thread_info=thread_int_info,sides=120,chamfer=1) {
 
+hollow_standoff()
+
+difference() {
 cut_female_threads(h=standoff_thread_internal_length,thread=thread,thread_info=thread_info)
 
 translate([0,0,standoff_smooth_length])
@@ -466,6 +486,13 @@ if(standoff_smooth_diameter>0) {
 else {
   chamfered_cylinder(h=standoff_smooth_length+safety,d=flat_or_point_d(thread_int_info[2])+wall,sides=sides,c=chamfer);
   }
+}
+
+// this cuts out a 45 degree cone at the top of the inside of the standoff
+// so support is not needed
+translate([0,0,standoff_thread_internal_length+thread_int_info[0]/2-safety])
+cylinder(d1=thread_int_info[2],h=thread_int_info[2],d2=0);
+
 }
 }
 
