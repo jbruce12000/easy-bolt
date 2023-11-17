@@ -17,6 +17,7 @@ openscad ./easy-bolt.scad --camera=0,0,0,300,0,0,0 --viewall --autocenter -o bol
 # bolt head slots
 openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_slot.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D 'bolt_head_slot="yes"'
 openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_socket.png --imgsize 300,300 -D 'bolt_head_shape="standard"' -D 'bolt_head_socket="yes"' -D bolt_head_socket_depth=5 -D bolt_head_socket_diameter=8
+openscad ./easy-bolt.scad --camera=0,0,0,240,0,0,0 --viewall --autocenter -o bolt_head_phillips.png --imgsize 600,600 -D 'bolt_head_shape="standard"' -D 'bolt_head_phillips="yes"'
 
 
 # nut shapes

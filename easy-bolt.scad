@@ -50,7 +50,7 @@ bolt_head_socket_sides=6;
 // cut a phillips screwdriver in the head?
 bolt_head_phillips="no"; //[yes,no]
 // phillips_driver_diameter
-bolt_head_phillips_diameter=12;
+bolt_head_phillips_diameter=10;
 
 // hollow out the center of the bolt (see overall->wall)?
 bolt_hollow="no"; //[yes,no]

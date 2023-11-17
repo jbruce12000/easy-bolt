@@ -39,7 +39,7 @@ bolt_head_slot_depth=2.0;
 bolt_head_slot_width=2.0;
 // rotation of slot
 bolt_head_slot_rotation=30;
-// cut a socket in the bolt head
+// cut a socket in the bolt head/
 bolt_head_socket="no"; //[yes,no]
 //depth of bolt head socket
 bolt_head_socket_depth=5.0;
@@ -47,6 +47,11 @@ bolt_head_socket_depth=5.0;
 bolt_head_socket_diameter=6.0;
 // hex by default
 bolt_head_socket_sides=6;
+// cut a phillips screwdriver in the head?
+bolt_head_phillips="no"; //[yes,no]
+// phillips_driver_diameter
+bolt_head_phillips_diameter=10;
+
 // hollow out the center of the bolt (see overall->wall)?
 bolt_hollow="no"; //[yes,no]
 
@@ -2809,6 +2814,46 @@ cylinder(d=flat_or_point_d(bolt_head_socket_diameter),h=bolt_head_socket_depth);
 }
 
 //---------------------------------------------------------------------------
+module cut_bolt_head_phillips(driver_d=12) {
+if(bolt_head_phillips=="no") { children(); }
+if(bolt_head_phillips=="yes") {
+difference() {
+children();
+translate([0,0,driver_d/1.6])
+mirror([0,0,1])
+difference() {
+cylinder(d=driver_d,h=50);
+translate([0,0,-driver_d/2.5])
+union() {
+mirror([0,1,0])
+rotate([0,0,90])
+phillips_cutter(driver_d=driver_d);
+rotate([0,0,90])
+phillips_cutter(driver_d=driver_d);
+phillips_cutter(driver_d=driver_d);
+mirror([1,0,0])
+phillips_cutter(driver_d=driver_d);
+}
+}
+}
+}
+}
+
+//---------------------------------------------------------------------------
+// this creates a multi-faceted torus like shape. four of these are used
+// to cut a phillips driver shape
+//---------------------------------------------------------------------------
+module phillips_cutter(driver_d=10) {
+translate([driver_d+driver_d/2+driver_d/12,0,0])
+scale([driver_d,driver_d*7.5/10,driver_d*1.8])
+rotate([90,0,0])
+rotate_extrude(angle=360) {
+translate([1,0,0])
+scale([1,1.2]) circle(d=1,$fn=7);
+}
+}
+
+//---------------------------------------------------------------------------
 module mybolt(thread=thread,thread_info=thread_int_info,bolt_head_diameter=20,bolt_head_height=10,sides=6,chamfer=1) {
 
 //verification of length of bolt
@@ -2817,6 +2862,7 @@ module mybolt(thread=thread,thread_info=thread_int_info,bolt_head_diameter=20,bo
 hollow_bolt(up=bolt_head_height,h=bolt_smooth_length+bolt_threaded_length)
 cut_bolt_head_socket()
 cut_bolt_head_slot(d=bolt_head_slot_depth,w=bolt_head_slot_width)
+cut_bolt_head_phillips(driver_d=bolt_head_phillips_diameter)
 
 translate([0,0,bolt_head_height+bolt_smooth_length])
 union() {
