@@ -374,7 +374,7 @@ cylinder(d=flat_or_point_d(bolt_head_socket_diameter),h=bolt_head_socket_depth);
 }
 
 //---------------------------------------------------------------------------
-module cut_bolt_head_phillips(driver_d=12) {
+module cut_bolt_head_phillips(driver_d=10) {
 if(bolt_head_phillips=="no") { children(); }
 if(bolt_head_phillips=="yes") {
 difference() {
@@ -382,7 +382,7 @@ children();
 translate([0,0,driver_d/1.6])
 mirror([0,0,1])
 difference() {
-cylinder(d=driver_d,h=50);
+cylinder(d=driver_d,h=driver_d*2);
 translate([0,0,-driver_d/2.5])
 union() {
 mirror([0,1,0])
@@ -395,8 +395,8 @@ mirror([1,0,0])
 phillips_cutter(driver_d=driver_d);
 }
 }
-}
-}
+} //end difference
+} //end if phillips
 }
 
 //---------------------------------------------------------------------------
@@ -407,7 +407,7 @@ module phillips_cutter(driver_d=10) {
 translate([driver_d+driver_d/2+driver_d/12,0,0])
 scale([driver_d,driver_d*7.5/10,driver_d*1.8])
 rotate([90,0,0])
-rotate_extrude(angle=360) {
+rotate_extrude(angle=180) {
 translate([1,0,0])
 scale([1,1.2]) circle(d=1,$fn=7);
 }
