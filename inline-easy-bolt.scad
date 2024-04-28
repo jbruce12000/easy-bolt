@@ -15,6 +15,8 @@ knurl_depth=1.0;
 knurls=30;
 // reverse threads
 reverse_threads="no"; // [yes,no]
+// scale of the shown object in x,y and z
+object_scale = 1; //[.5:.01:5]
 
 /* [Bolt] */
 // show bolt?
@@ -2995,21 +2997,26 @@ sides<11 && sides % 2==0 && measure_flat_to_flat=="yes" ? (d/2)/(cos((360/sides)
 
 //---------------------------------------------------------------------------
 if (show_nut=="yes") {
+scale(object_scale)
 nut(d=nut_d,h=nut_h,thread=thread,thread_info=thread_int_info,chamfer=chamfer,sides=sides);
 }
 
 if (show_washer=="yes") {
+scale(object_scale)
 washer(d=washer_d,h=washer_h,thread=thread,thread_info=thread_int_info);
 }
 
 if (show_bolt=="yes") {
+scale(object_scale)
 mybolt(thread=thread,thread_info=thread_int_info,bolt_head_diameter=bolt_head_diameter,bolt_head_height=bolt_head_height,sides=sides,chamfer=chamfer);
 }
 
 if (show_rod=="yes") {
+scale(object_scale)
 rod(thread=thread,thread_info=thread_int_info,rod_smooth_length=rod_smooth_length,rod_thread_start_length=rod_thread_start_length,rod_thread_end_length=rod_thread_end_length,sides=sides,chamfer=chamfer);
 }
 
 if (show_standoff=="yes") {
+scale(object_scale)
 standoff(thread=thread,thread_info=thread_int_info,standoff_smooth_length=standoff_smooth_length,standoff_thread_external_length=standoff_thread_external_length,standoff_thread_internal_length=standoff_thread_internal_length,sides=sides,chamfer=chamfer);
 }
