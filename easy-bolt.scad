@@ -60,7 +60,7 @@ bolt_hollow="no"; //[yes,no]
 /* [Nut] */
 // show nut?
 show_nut="no"; //[yes,no]
-nut_shape="standard"; //[standard,wing,cap,flange,knurled]
+nut_shape="standard"; //[standard,wing,cap,flange,knurled,knurled_cap]
 // height of nut
 nut_h=11.0; 
 // outside diameter of nut
@@ -69,6 +69,8 @@ nut_d=25.0;
 nut_flange_d=30.0;
 // height of nut flange if it has one
 nut_flange_h=3.0;
+// thickness of the knurled cap if it has one
+nut_knurled_cap_thickness=5.0;
 
 /* [Washer] */
 // show washer? 
@@ -230,6 +232,15 @@ if(nut_shape=="knurled") {
   translate([0,0,h/2])
   knurl_cylinder(d=d,h=h)
   chamfered_cylinder(d=d,h=h,c=chamfer,sides=120);
+  }
+
+if(nut_shape=="knurled_cap") {
+  cut_female_threads(h=h,thread=thread,thread_info=thread_info)
+  translate([0,0,h/2])
+  knurl_cylinder(d=d,h=h)
+  chamfered_cylinder(d=d,h=h,c=chamfer,sides=120);
+  translate([0,0,h-nut_knurled_cap_thickness])
+  cylinder(d=thread_info[2], h=nut_knurled_cap_thickness, center=false);
   }
 
 }
