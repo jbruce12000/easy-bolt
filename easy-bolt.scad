@@ -60,7 +60,7 @@ bolt_hollow="no"; //[yes,no]
 /* [Nut] */
 // show nut?
 show_nut="no"; //[yes,no]
-nut_shape="standard"; //[standard,wing,cap,flange,knurled,knurled_cap]
+nut_shape="standard"; //[standard,wing,cap,flange,knob,knurled,knurled_cap]
 // height of nut
 nut_h=11.0; 
 // outside diameter of nut
@@ -161,6 +161,13 @@ module nut(d=25,h=8,sides=6,chamfer=1,thread="M6",thread_info=thread_int_info) {
 //diameter verification for 6 sided nuts
 //translate([0,0,-5])
 //cylinder(d=d,h=20);
+
+if(nut_shape=="knob") {
+translate([0,0,(d)/4])
+cut_female_threads(h=d-wall,thread=thread,thread_info=thread_info)
+translate([0,0,(d)/4])
+sphere(d=d);
+}
 
 if(nut_shape=="standard") {
   cut_female_threads(h=h,thread=thread,thread_info=thread_info)
