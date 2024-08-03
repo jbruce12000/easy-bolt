@@ -2497,6 +2497,7 @@ function thread_specs(designator, table=THREAD_TABLE) =
     let (specs = table[search([designator], table, num_returns_per_match=1,
                               index_col_num=0)[0]][1])
         // verify that we found something and return it:
+        specs;
 
 module thread(designator, turns, higbee_arc=20, fn=120, table=THREAD_TABLE)
 {
